@@ -58,6 +58,9 @@ export default {
           tag: "hsl(var(--project-tag))",
           tagText: "hsl(var(--project-tag-text))",
         },
+        navbar: {
+          glass: "hsl(var(--navbar-glass))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

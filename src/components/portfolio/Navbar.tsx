@@ -55,10 +55,10 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-auto"
+      className="fixed top-6  left-0 w-full flex justify-center z-50"
     >
       <div className="bg-navbar-glass/80 backdrop-blur-xl border border-border/50 rounded-full px-6 py-3 shadow-2xl">
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center gap-2">
           {navItems.map((item) => {
             const isActive = activeSection === item.href.substring(1);
             return (

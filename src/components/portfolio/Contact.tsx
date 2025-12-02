@@ -19,10 +19,13 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Basic validation
+
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: "Error",
@@ -32,23 +35,30 @@ const Contact = () => {
       return;
     }
 
-    // Here you would typically send the form data to a backend
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon!",
-    });
+    // Prepare form data for Netlify
+    const form = e.target;
+    const data = new FormData(form);
 
-    // Reset form
-    setFormData({ name: "", email: "", message: "" });
-  };
+    try {
+      await fetch("/", {
+        method: "POST",
+        body: data,
+      });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you soon!",
+      });
+
+      setFormData({ name: "", email: "", message: "" });
+      form.reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again later.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -60,6 +70,17 @@ const Contact = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6 }}
         >
+          {/* Hidden Netlify Form (required for detection) */}
+          <form
+            name="contact"
+            data-netlify="true"
+            hidden
+          >
+            <input type="text" name="name" />
+            <input type="email" name="email" />
+            <textarea name="message"></textarea>
+          </form>
+
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-foreground">
             Get In Touch
           </h2>
@@ -68,42 +89,34 @@ const Contact = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
-                animate={
-                  isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }
-                }
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <Card className="p-6 h-full bg-card border-border hover:shadow-lg transition-shadow">
                   <Mail className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="text-xl font-bold mb-2 text-foreground">
-                    Email
-                  </h3>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Email</h3>
                   <a
-                    href="mailto:sureshkumar@example.com"
+                    href="mailto:suresheshwar007@gmail.com"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    sureshkumar@example.com
+                    suresheshwar007@gmail.com
                   </a>
                 </Card>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
-                animate={
-                  isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }
-                }
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <Card className="p-6 h-full bg-card border-border hover:shadow-lg transition-shadow">
                   <Phone className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="text-xl font-bold mb-2 text-foreground">
-                    Phone
-                  </h3>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">Phone</h3>
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+918610802659"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    +1 (234) 567-890
+                    +91 8610802659
                   </a>
                 </Card>
               </motion.div>
@@ -118,12 +131,18 @@ const Contact = () => {
                 <h3 className="text-2xl font-bold mb-6 text-foreground">
                   Send a Message
                 </h3>
-                <form onSubmit={handleSubmit} className="space-y-6">
+
+                <form
+                  name="contact"
+                  method="POST"
+                  data-netlify="true"
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                >
+                  <input type="hidden" name="form-name" value="contact" />
+
                   <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium mb-2 text-foreground"
-                    >
+                    <label className="block text-sm font-medium mb-2 text-foreground">
                       Name
                     </label>
                     <Input
@@ -133,15 +152,11 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Your name"
-                      className="w-full"
                     />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium mb-2 text-foreground"
-                    >
+                    <label className="block text-sm font-medium mb-2 text-foreground">
                       Email
                     </label>
                     <Input
@@ -151,15 +166,11 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="your.email@example.com"
-                      className="w-full"
                     />
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium mb-2 text-foreground"
-                    >
+                    <label className="block text-sm font-medium mb-2 text-foreground">
                       Message
                     </label>
                     <Textarea
@@ -169,7 +180,6 @@ const Contact = () => {
                       onChange={handleChange}
                       placeholder="Your message..."
                       rows={5}
-                      className="w-full"
                     />
                   </div>
 

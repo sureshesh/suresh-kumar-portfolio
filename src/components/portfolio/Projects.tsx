@@ -5,6 +5,9 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ApplogikaImg from "@/assets/Applogika.png";
+import LeaselyImg from "@/assets/Leasely.png";
+import MarketIQImg from "@/assets/MarketIQ.png";
 
 const Projects = () => {
   const ref = useRef(null);
@@ -14,6 +17,7 @@ const Projects = () => {
     {
       title: "MarketIQ",
       subtitle: "AI Social Media Marketing App",
+      image: MarketIQImg,
       description:
         "Built automation modules and integrated AI features using AWS Bedrock. Implemented Nova voice recognition, scheduling systems, and performance optimizations.",
       tech: ["React", "Node.js", "AWS Bedrock", "AI/ML", "Voice Recognition"],
@@ -27,6 +31,7 @@ const Projects = () => {
     {
       title: "Leasely",
       subtitle: "Rental Management System",
+      image: LeaselyImg,
       description:
         "Developed comprehensive modules for property, tenant, vendor, and payment management. Integrated IoT-based property monitoring and enhanced dashboard workflows.",
       tech: ["MERN Stack", "IoT", "Payment Integration", "Real-time Data"],
@@ -40,6 +45,7 @@ const Projects = () => {
     {
       title: "Applogika Website",
       subtitle: "Company Website",
+      image: ApplogikaImg,
       description:
         "Built responsive, modern company website with focus on SEO and performance. Utilized modern development tools and best practices.",
       tech: ["React", "TailwindCSS", "SEO", "Performance Optimization"],
@@ -52,29 +58,7 @@ const Projects = () => {
     },
   ];
 
-  const personalProjects = [
-    {
-      title: "Project Name 1",
-      description: "Description of your personal project goes here. Add details about what you built and the technologies used.",
-      tech: ["React", "Node.js", "MongoDB"],
-      github: "#",
-      live: "#",
-    },
-    {
-      title: "Project Name 2",
-      description: "Description of your personal project goes here. Add details about what you built and the technologies used.",
-      tech: ["Express", "PostgreSQL", "Docker"],
-      github: "#",
-      live: "#",
-    },
-    {
-      title: "Project Name 3",
-      description: "Description of your personal project goes here. Add details about what you built and the technologies used.",
-      tech: ["Vue.js", "Firebase", "Tailwind"],
-      github: "#",
-      live: "#",
-    },
-  ];
+  
 
   return (
     <section id="projects" className="py-20 bg-background">
@@ -107,9 +91,16 @@ const Projects = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card border-border">
-                    <h4 className="text-2xl font-bold mb-2 text-foreground">
-                      {project.title}
-                    </h4>
+                      {project.image && (
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-48 object-cover rounded mb-4"
+                        />
+                      )}
+                      <h4 className="text-2xl font-bold mb-2 text-foreground">
+                        {project.title}
+                      </h4>
                     <p className="text-primary font-semibold mb-3">
                       {project.subtitle}
                     </p>
@@ -157,6 +148,13 @@ const Projects = () => {
               className="max-w-3xl mx-auto"
             >
               <Card className="p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card border-border">
+                {workProjects[2].image && (
+                  <img
+                    src={workProjects[2].image}
+                    alt={workProjects[2].title}
+                    className="w-full h-48 object-cover rounded mb-4"
+                  />
+                )}
                 <h4 className="text-2xl font-bold mb-2 text-foreground">
                   {workProjects[2].title}
                 </h4>
@@ -197,80 +195,6 @@ const Projects = () => {
                 </div>
               </Card>
             </motion.div>
-          </div>
-
-          {/* Personal Projects */}
-          <div>
-            <h3 className="text-3xl font-bold mb-8 text-center text-foreground">
-              Personal Projects
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {personalProjects.map((project, index) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={
-                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
-                  }
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                >
-                  <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card border-border flex flex-col">
-                    <h4 className="text-xl font-bold mb-3 text-foreground">
-                      {project.title}
-                    </h4>
-                    <p className="text-muted-foreground mb-4 flex-grow">
-                      {project.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="secondary"
-                          className="bg-project-tag text-project-tagText text-xs"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        asChild
-                      >
-                        <a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="w-4 h-4 mr-1" />
-                          Code
-                        </a>
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        asChild
-                      >
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <ExternalLink className="w-4 h-4 mr-1" />
-                          Live
-                        </a>
-                      </Button>
-                    </div>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </motion.div>
       </div>

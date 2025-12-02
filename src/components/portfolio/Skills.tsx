@@ -1,15 +1,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Card } from "@/components/ui/card";
-import {
-  Code2,
-  Database,
-  GitBranch,
-  Layout,
-  Server,
-  Cloud,
-} from "lucide-react";
 
 const Skills = () => {
   const ref = useRef(null);
@@ -17,39 +8,65 @@ const Skills = () => {
 
   const skills = [
     {
-      icon: <Layout className="w-8 h-8" />,
-      title: "Frontend",
-      items: ["HTML", "CSS", "JavaScript (ES6+)", "React.js", "Redux", "TailwindCSS"],
+      name: "HTML",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
     },
     {
-      icon: <Server className="w-8 h-8" />,
-      title: "Backend",
-      items: ["Node.js", "Express.js", "REST APIs"],
+      name: "CSS",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
     },
     {
-      icon: <Database className="w-8 h-8" />,
-      title: "Database",
-      items: ["MongoDB", "Mongoose"],
+      name: "JavaScript",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
     },
     {
-      icon: <GitBranch className="w-8 h-8" />,
-      title: "Version Control",
-      items: ["Git", "GitHub", "CI/CD"],
+      name: "React",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
     },
     {
-      icon: <Cloud className="w-8 h-8" />,
-      title: "Cloud & Deployment",
-      items: ["AWS EC2", "AWS S3", "Deployments"],
+      name: "Redux",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
     },
     {
-      icon: <Code2 className="w-8 h-8" />,
-      title: "Tools",
-      items: ["VS Code", "Postman", "npm/yarn"],
+      name: "Tailwind",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+    },
+    {
+      name: "Node.js",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    },
+    {
+      name: "Express",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    },
+    {
+      name: "MongoDB",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    },
+    {
+      name: "Mongoose",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    },
+    {
+      name: "Git",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    },
+    {
+      name: "GitHub",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+    },
+    {
+      name: "AWS",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
+    },
+    {
+      name: "Postman",
+      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg",
     },
   ];
 
   return (
-    <section id="skills" className="py-20 bg-secondary/30">
+    <section id="skills" className="py-20 bg-slate-100">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -57,36 +74,26 @@ const Skills = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-foreground">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-black">
             Skills & Technologies
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {/* New Yash-style icons grid */}
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-10 max-w-5xl mx-auto">
             {skills.map((skill, index) => (
               <motion.div
-                key={skill.title}
-                initial={{ opacity: 0, y: 30 }}
-                animate={
-                  isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
-                }
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                key={skill.name}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.4, delay: index * 0.08 }}
+                className="flex flex-col items-center gap-2"
               >
-                <Card className="p-6 h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card border-border">
-                  <div className="text-skill-icon mb-4">{skill.icon}</div>
-                  <h3 className="text-xl font-bold mb-3 text-foreground">
-                    {skill.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skill.items.map((item) => (
-                      <span
-                        key={item}
-                        className="text-sm bg-project-tag text-project-tagText px-3 py-1 rounded-full"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </Card>
+                <img
+                  src={skill.logo}
+                  alt={skill.name}
+                  className="w-14 h-14 object-contain"
+                />
+                <p className="text-sm text-muted-foreground">{skill.name}</p>
               </motion.div>
             ))}
           </div>

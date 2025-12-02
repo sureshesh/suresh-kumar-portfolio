@@ -12,25 +12,13 @@ const Experience = () => {
     {
       title: "MERN Stack Developer",
       company: "Applogika",
-      period: "2024 – Present",
+      period: "Apr-2024 – Nov-2025",
       description: [
         "Built Leasely modules for property, tenant, vendor, and payment management",
         "Developed MarketIQ AI features and backend systems",
         "Worked with AWS cloud services and CI/CD pipelines",
         "Created comprehensive technical documentation",
         "Collaborated with cross-functional teams to deliver scalable solutions",
-      ],
-    },
-    {
-      title: "MERN Stack Developer",
-      company: "Freelancer",
-      period: "2023 – 2024",
-      description: [
-        "Built full-stack MERN applications from scratch",
-        "Created RESTful APIs and interactive dashboards",
-        "Implemented authentication and authorization systems",
-        "Delivered end-to-end solutions for clients across various industries",
-        "Managed project timelines and client communications",
       ],
     },
   ];

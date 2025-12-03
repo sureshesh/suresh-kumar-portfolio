@@ -35,7 +35,6 @@ const Contact = () => {
       return;
     }
 
-    // Prepare form data for Netlify
     const form = e.target;
     const data = new FormData(form);
 
@@ -70,23 +69,13 @@ const Contact = () => {
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Hidden Netlify Form (required for detection) */}
-          <form
-            name="contact"
-            data-netlify="true"
-            hidden
-          >
-            <input type="text" name="name" />
-            <input type="email" name="email" />
-            <textarea name="message"></textarea>
-          </form>
-
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-foreground">
             Get In Touch
           </h2>
 
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              {/* EMAIL CARD */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
@@ -94,7 +83,9 @@ const Contact = () => {
               >
                 <Card className="p-6 h-full bg-card border-border hover:shadow-lg transition-shadow">
                   <Mail className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="text-xl font-bold mb-2 text-foreground">Email</h3>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">
+                    Email
+                  </h3>
                   <a
                     href="mailto:suresheshwar007@gmail.com"
                     className="text-muted-foreground hover:text-primary transition-colors"
@@ -104,6 +95,7 @@ const Contact = () => {
                 </Card>
               </motion.div>
 
+              {/* PHONE CARD */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
@@ -111,7 +103,9 @@ const Contact = () => {
               >
                 <Card className="p-6 h-full bg-card border-border hover:shadow-lg transition-shadow">
                   <Phone className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="text-xl font-bold mb-2 text-foreground">Phone</h3>
+                  <h3 className="text-xl font-bold mb-2 text-foreground">
+                    Phone
+                  </h3>
                   <a
                     href="tel:+918610802659"
                     className="text-muted-foreground hover:text-primary transition-colors"
@@ -122,6 +116,7 @@ const Contact = () => {
               </motion.div>
             </div>
 
+            {/* CONTACT FORM */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -132,6 +127,7 @@ const Contact = () => {
                   Send a Message
                 </h3>
 
+                {/* NETLIFY FORM */}
                 <form
                   name="contact"
                   method="POST"
@@ -139,6 +135,7 @@ const Contact = () => {
                   onSubmit={handleSubmit}
                   className="space-y-6"
                 >
+                  {/* required hidden input */}
                   <input type="hidden" name="form-name" value="contact" />
 
                   <div>

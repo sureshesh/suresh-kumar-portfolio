@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { name: "Home", href: "#home" },
@@ -48,6 +50,7 @@ const Navbar = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -55,9 +58,10 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-6  left-0 w-full flex justify-center z-50"
+      className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 sm:top-6"
     >
-      <div className="bg-navbar-glass/80 backdrop-blur-xl border border-border/50 rounded-full px-6 py-3 shadow-2xl">
+      {/* Desktop Navigation */}
+      <div className="hidden md:flex bg-navbar-glass/80 backdrop-blur-xl border border-border/50 rounded-full px-6 py-3 shadow-2xl">
         <div className="flex items-center gap-2">
           {navItems.map((item) => {
             const isActive = activeSection === item.href.substring(1);
@@ -85,6 +89,60 @@ const Navbar = () => {
             );
           })}
         </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="md:hidden w-full">
+        <div className="bg-navbar-glass/80 backdrop-blur-xl border border-border/50 rounded-lg px-4 py-3 shadow-2xl flex items-center justify-between">
+          <span className="text-sm font-medium text-foreground">Menu</span>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 hover:bg-secondary rounded-md transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-5 h-5 text-foreground" />
+            ) : (
+              <Menu className="w-5 h-5 text-foreground" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{
+            opacity: isMobileMenuOpen ? 1 : 0,
+            y: isMobileMenuOpen ? 0 : -10,
+          }}
+          transition={{ duration: 0.2 }}
+          className={`absolute top-16 left-4 right-4 bg-navbar-glass/80 backdrop-blur-xl border border-border/50 rounded-lg shadow-2xl overflow-hidden ${
+            !isMobileMenuOpen && "pointer-events-none"
+          }`}
+        >
+          <div className="flex flex-col">
+            {navItems.map((item, index) => {
+              const isActive = activeSection === item.href.substring(1);
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  className={`px-4 py-3 text-sm font-medium transition-colors text-left ${
+                    index !== navItems.length - 1 ? "border-b border-border/30" : ""
+                  }`}
+                >
+                  <span
+                    className={
+                      isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                    }
+                  >
+                    {item.name}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </motion.nav>
   );

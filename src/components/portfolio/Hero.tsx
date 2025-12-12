@@ -46,33 +46,41 @@ const Hero = () => {
           </motion.p>
 
           {/* LETTER BY LETTER ANIMATION */}
-          <motion.h1
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.05 },
-              },
-            }}
-            className="text-5xl md:text-7xl font-bold mb-6 flex justify-center flex-wrap gap-1"
-          >
-            <span className="text-white">Hello, I'm&nbsp;</span>
-
-            {name.split("").map((letter, index) => (
-              <motion.span
-                key={index}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="text-red-500"
-              >
-                {letter === " " ? "\u00A0" : letter}
-              </motion.span>
-            ))}
-          </motion.h1>
+          <div className="mb-6">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-2"
+            >
+              Hello, I'm
+            </motion.p>
+            <motion.h1
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: { staggerChildren: 0.05 },
+                },
+              }}
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold flex justify-center flex-wrap gap-1 whitespace-normal"
+            >
+              {name.split("").map((letter, index) => (
+                <motion.span
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="text-red-500"
+                >
+                  {letter === " " ? "\u00A0" : letter}
+                </motion.span>
+              ))}
+            </motion.h1>
+          </div>
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

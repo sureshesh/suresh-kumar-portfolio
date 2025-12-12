@@ -112,7 +112,7 @@ const Hero = () => {
             {/* SOCIAL ICONS */}
             <div className="flex items-center gap-4">
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/suresh-kumar-670a28392/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition"
